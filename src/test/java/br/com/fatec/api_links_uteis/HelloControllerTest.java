@@ -11,6 +11,6 @@ public class HelloControllerTest {
     @Test
     void deveReortnarMensagemHello(){
         String response = helloController.hello();
-        assertEquals("Hello World!", response);
+        assertEquals("Hello World!!", response);
     }
 }
