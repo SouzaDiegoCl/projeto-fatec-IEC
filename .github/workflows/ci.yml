@@ -1,0 +1,13 @@
+# Nome do workflow que aparece no GitHub
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Lista de Jobs
+jobs:
+  ci:
+    runs-on: ubuntu-latest
