@@ -3,6 +3,7 @@ package br.com.fatec.api_links_uteis.controller;
 import java.util.List;
 import java.util.Map;
 
+import static br.com.fatec.api_links_uteis.constants.Constants.TITULO;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -23,7 +24,7 @@ class LinksControllerTest {
     void deveRetornarTodosOsLinks() {
         List<Map<String, String>> links = controller.getLinks();
         assertEquals(2, links.size());
-        assertEquals("GitHub", links.get(0).get("titulo"));
+        assertEquals("GitHub", links.get(0).get(TITULO));
     }
 
     // 2. Teste para buscar link por ID existente
@@ -31,7 +32,7 @@ class LinksControllerTest {
     void deveRetornarLinkQuandoIdExiste() {
         Map<String, String> link = controller.getLinkById(1);
         assertEquals("1", link.get("id"));
-        assertEquals("GitHub", link.get("titulo"));
+        assertEquals("GitHub", link.get(TITULO));
     }
 
     // 3. Teste para buscar link por ID inexistente
@@ -44,10 +45,10 @@ class LinksControllerTest {
     // 4. Teste para criar novo link
     @Test
     void deveCriarNovoLinkComIdGerado() {
-        Map<String, String> novoLink = Map.of("titulo", "Google", "url", "https://google.com");
+        Map<String, String> novoLink = Map.of(TITULO, "Google", "url", "https://google.com");
         Map<String, String> resultado = controller.createLink(novoLink);
 
-        assertEquals("Google", resultado.get("titulo"));
+        assertEquals("Google", resultado.get(TITULO));
         assertEquals("https://google.com", resultado.get("url"));
         assertEquals("3", resultado.get("id")); // Próximo ID
     }
@@ -55,27 +56,27 @@ class LinksControllerTest {
     // 5. Teste para atualizar link existente
     @Test
     void deveAtualizarLinkExistenteCompletamente() {
-        Map<String, String> dadosAtualizacao = Map.of("titulo", "Novo Título", "url", "https://novo.com");
+        Map<String, String> dadosAtualizacao = Map.of(TITULO, "Novo Título", "url", "https://novo.com");
         Map<String, String> resultado = controller.updateLink(1, dadosAtualizacao);
 
-        assertEquals("Novo Título", resultado.get("titulo"));
+        assertEquals("Novo Título", resultado.get(TITULO));
         assertEquals("https://novo.com", resultado.get("url"));
     }
 
     // 6. Teste para atualizar parcialmente (PATCH)
     @Test
     void deveAtualizarLinkParcialmente() {
-        Map<String, String> dadosParciais = Map.of("titulo", "Título Atualizado");
+        Map<String, String> dadosParciais = Map.of(TITULO, "Título Atualizado");
         Map<String, String> resultado = controller.patchLink(2, dadosParciais);
 
-        assertEquals("Título Atualizado", resultado.get("titulo"));
+        assertEquals("Título Atualizado", resultado.get(TITULO));
         assertEquals("https://stackoverflow.com", resultado.get("url")); // URL original mantida
     }
 
     // 7. Teste para PATCH com link inexistente
     @Test
     void deveRetornarNullQuandoPatchLinkInexistente() {
-        Map<String, String> dadosParciais = Map.of("titulo", "Teste");
+        Map<String, String> dadosParciais = Map.of(TITULO, TITULO);
         Map<String, String> resultado = controller.patchLink(999, dadosParciais);
 
         assertEquals(null, resultado);
