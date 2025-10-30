@@ -1,4 +1,4 @@
-name: Docker Build& Deploy
+name: Docker Build & Deploy
 on:
   push:
     branches: [" main "]
@@ -10,7 +10,7 @@ jobs:
       image: maven:3.9.9-eclipse-temurin-21
     steps:
       - name: Checkout código
-        uses: actions/checkout@v
+        uses: actions/checkout@v4
 
       - name: Executar testes
         run: mvn -B verify --file pom.xml
@@ -28,7 +28,7 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build e Push para Docker Hub
-        uses: docker/build-push-actions@v5
+        uses: docker/build-push-action@v5
         with:
           context: .
           push: true
